@@ -1,0 +1,44 @@
+SELECT *
+FROM transactions;
+
+--What is total amount (in USD) the user bought?
+SELECT SUM(money_in)
+FROM transactions;
+
+--What is the total amount (in USD) the user sold?
+SELECT SUM(money_out)
+FROM transactions;
+
+--How many money_in transactions are in this table?
+SELECT COUNT(money_in)
+FROM transactions;
+
+--How many money_in transactions are in this table where 'BIT' is the currency?
+SELECT COUNT(money_in)
+FROM transactions
+WHERE currency = 'BIT';
+
+--What was the largest transaction in the whole table?
+SELECT 
+  MAX(money_in),
+  MAX(money_out)
+FROM transactions;
+
+--What is the average money_in for the currency Ethereum ('ETH')?
+SELECT AVG(money_in)
+FROM transactions
+WHERE currency = 'ETH';
+
+--Build a ledger for the different dates
+SELECT date, 
+  AVG(money_in), 
+  AVG(money_out)
+FROM transactions
+GROUP BY date;
+
+--Make previous query easier to read
+SELECT date AS 'Date',
+  ROUND(AVG(money_in), 2) AS 'Average Buy',
+  ROUND(AVG(money_out), 2) AS 'Average Sell'
+FROM transactions
+GROUP BY date;
